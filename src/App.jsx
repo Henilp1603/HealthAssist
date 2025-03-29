@@ -21,11 +21,17 @@ const App = () => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      hitRequest();
+    }
+  };
+
   
   const generateResponse = async (msg) => {
     if (!msg) return;
     
-    const genAI = new GoogleGenerativeAI("YOUR_API_KEY_HERE");
+    const genAI = new GoogleGenerativeAI("AIzaSyAe41APgW7B80QvSnpFkHhV5VvD0BlEYYQ");
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(msg);
     
@@ -51,7 +57,7 @@ const App = () => {
       <div className="Container w-screen min-h-screen overflow-x-hidden bg-[#0E0E0E] text-white">
         {
           isResponseScreen ?
-            <div className='h-[80vh]'>
+            <div className='h-full p-2'>
               <div className="header pt-[25px] flex items-center justify-between w-[100vw] px-[300px]">
                 <h2 className='text-2xl'>HealthAssist</h2>
                 <button id='newChatBtn' className='bg-[#181818] p-[10px] rounded-[30px] cursor-pointer text-[14px] px-[20px]' onClick={newChat}>New Chat</button>
@@ -72,28 +78,28 @@ const App = () => {
             <div className="middle h-[80vh] flex items-center flex-col justify-center">
               <h1 className='text-4xl'>HealthAssist</h1>
               <div className="boxes mt-[30px] flex items-center gap-2">
-                <div className="card rounded-lg cursor-pointer transition-all hover:bg-[#201f1f] px-[20px] relative min-h-[20vh] bg-[#181818] p-[10px]">
+                <div className="card rounded-lg cursor-pointer transition-all hover:bg-[#201f1f] px-[20px] relative min-h-[20vh] bg-[#181818] p-[10px]" onClick={() => generateResponse("I'm feeling really anxious today. Can you help me calm down?")}>
                   <p className='text-[18px]'>I'm feeling really anxious today. <br />
                    Can you help me calm down?</p>
 
                   <i className=' absolute right-3 bottom-3 text-[18px]'><IoCodeSlash /></i>
                 </div>
-                <div className="card rounded-lg cursor-pointer transition-all hover:bg-[#201f1f] px-[20px] relative min-h-[20vh] bg-[#181818] p-[10px]">
-                  <p className='text-[18px]'>'ve been feeling unmotivated and stuck lately.  <br />
+                <div className="card rounded-lg cursor-pointer transition-all hover:bg-[#201f1f] px-[20px] relative min-h-[20vh] bg-[#181818] p-[10px]" onClick={() => generateResponse("I've been feeling unmotivated and stuck lately. Do you have any advice?")}>
+                  <p className='text-[18px]'>I've been feeling unmotivated and stuck lately.  <br />
                   Do you have any advice?<br />
                   </p>
 
                   <i className=' absolute right-3 bottom-3 text-[18px]'><IoCodeSlash /></i>
                 </div>
 
-                <div className="card rounded-lg cursor-pointer transition-all hover:bg-[#201f1f] px-[20px] relative min-h-[20vh] bg-[#181818] p-[10px]">
+                <div className="card rounded-lg cursor-pointer transition-all hover:bg-[#201f1f] px-[20px] relative min-h-[20vh] bg-[#181818] p-[10px]" onClick={() => generateResponse("I just need some encouragement. Can you say something uplifting?")}>
                   <p className='text-[18px]'>I just need some encouragement. <br />
                   Can you say something uplifting?</p>
 
                   <i className=' absolute right-3 bottom-3 text-[18px]'><IoCodeSlash /></i>
                 </div>
 
-                <div className="card rounded-lg cursor-pointer transition-all hover:bg-[#201f1f] px-[20px] relative min-h-[20vh] bg-[#181818] p-[10px]">
+                <div className="card rounded-lg cursor-pointer transition-all hover:bg-[#201f1f] px-[20px] relative min-h-[20vh] bg-[#181818] p-[10px]" onClick={() => generateResponse("I keep overthinking everything, and it's making me stressed. What should I do?")}>
                   <p className='text-[18px]'> keep overthinking everything, <br />
                   and it's making me stressed.<br/>What should I do?</p>
 
@@ -106,7 +112,7 @@ const App = () => {
 
         <div className="bottom w-[100%] flex flex-col items-center">
           <div className="inputBox w-[60%] text-[15px] py-[7px] flex items-center bg-[#181818] rounded-[30px]">
-            <input value={message} onChange={(e) => { setMessage(e.target.value) }} type="text" className='p-[10px] pl-[15px] bg-transparent flex-1 outline-none border-none' placeholder='Write your message here...' id='messageBox' />
+            <input value={message} onKeyPress={handleKeyPress} onChange={(e) => { setMessage(e.target.value) }} type="text" className='p-[10px] pl-[15px] bg-transparent flex-1 outline-none border-none' placeholder='Write your message here...' id='messageBox' />
             {
               message == "" ? "" : <i className='text-green-500 text-[20px] mr-5 cursor-pointer' onClick={hitRequest}><IoSend /></i>
             }
