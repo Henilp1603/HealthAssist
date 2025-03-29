@@ -44,7 +44,7 @@ const App = () => {
     setMessages(newMessages); // Append new messages to the existing ones
     setisResponseScreen(true);
     setMessage(""); // Clear the input field after sending the message
-    console.log(result.response.text());
+    console.log(result.response.text()); // here
   };
 
   const newChat = () => {
